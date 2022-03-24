@@ -22,6 +22,8 @@ namespace WebAPI.Models
         [Required]
         public int Size { get; set; }
         public int AgeLimit { get; set; }
+        public List<Author> Writers { get; set; }
+        public List<Genre> Genres { get; set; }
         
     }
 }

@@ -22,6 +22,9 @@ namespace WebAPI.Models
         [Required]
         [MaxLength(768)]
         public string AboutText { get; set; }
+        
         public string Country { get; set; }
+        public List<Book> Books { get; set; }
+
     }
 }

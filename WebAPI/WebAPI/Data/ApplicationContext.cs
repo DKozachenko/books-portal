@@ -22,8 +22,8 @@ namespace WebAPI.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            string ConnectionString = _configuration.GetConnectionString("DefaultConnection");
-            optionsBuilder.UseSqlServer(ConnectionString);
+            //string ConnectionString = _configuration.GetConnectionString("DefaultConnection");
+            optionsBuilder.UseSqlServer("Data Source = (localdb)\\MSSQLLocalDB; Initial catalog = BooksPortal; Integrated Security = true");
         }
     }
 }

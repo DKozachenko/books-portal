@@ -14,5 +14,6 @@ namespace WebAPI.Models
         [Required]
         [MaxLength(100)]
         public string Name { get; set; }
+        public List<Book> Books { get; set; }
     }
 }
