@@ -64,7 +64,7 @@ namespace WebAPI.Controllers
         public JsonResult DeleteAuthor(long Id)
         {
             var RequiredAuthor = _db.Authors.SingleOrDefault(A => A.Id == Id);
-            _db.Remove(RequiredAuthor);
+            _db.Authors.Remove(RequiredAuthor);
             _db.SaveChanges();
             return new JsonResult(RequiredAuthor);
         }
