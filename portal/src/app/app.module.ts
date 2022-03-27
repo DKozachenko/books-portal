@@ -7,10 +7,21 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {NgToastModule} from "ng-angular-popup";
+import {MatIconModule} from "@angular/material/icon";
+import { AuthorsComponent } from './components/authors/authors.component';
+import { BooksComponent } from './components/books/books.component';
+import { GenresComponent } from './components/genres/genres.component';
+import { ErrorComponent } from './components/error/error.component';
+import { WelcomeComponent } from './components/welcome/welcome.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    AuthorsComponent,
+    BooksComponent,
+    GenresComponent,
+    ErrorComponent,
+    WelcomeComponent
   ],
   imports: [
     BrowserModule,
@@ -19,7 +30,8 @@ import {NgToastModule} from "ng-angular-popup";
     ReactiveFormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    NgToastModule
+    NgToastModule,
+    MatIconModule
   ],
   providers: [],
   bootstrap: [AppComponent]
