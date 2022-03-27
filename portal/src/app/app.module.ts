@@ -13,6 +13,11 @@ import { BooksComponent } from './components/books/books.component';
 import { GenresComponent } from './components/genres/genres.component';
 import { ErrorComponent } from './components/error/error.component';
 import { WelcomeComponent } from './components/welcome/welcome.component';
+import {MatFormFieldModule, MatLabel} from "@angular/material/form-field";
+import {MatTableModule} from "@angular/material/table";
+import {MatPaginatorModule} from "@angular/material/paginator";
+import {MatInputModule} from "@angular/material/input";
+import {MatSortHeader, MatSortModule} from "@angular/material/sort";
 
 @NgModule({
   declarations: [
@@ -31,7 +36,12 @@ import { WelcomeComponent } from './components/welcome/welcome.component';
     HttpClientModule,
     BrowserAnimationsModule,
     NgToastModule,
-    MatIconModule
+    MatIconModule,
+    MatFormFieldModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatInputModule,
+    MatSortModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

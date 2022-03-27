@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
+  production: true,
+  serverConnection: 'https://localhost:44315/API'
 };
