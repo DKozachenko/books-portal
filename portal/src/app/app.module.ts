@@ -18,6 +18,8 @@ import {MatTableModule} from "@angular/material/table";
 import {MatPaginatorModule} from "@angular/material/paginator";
 import {MatInputModule} from "@angular/material/input";
 import {MatSortHeader, MatSortModule} from "@angular/material/sort";
+import { AuthorsTableComponent } from './components/authors-table/authors-table.component';
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 
 @NgModule({
   declarations: [
@@ -26,7 +28,8 @@ import {MatSortHeader, MatSortModule} from "@angular/material/sort";
     BooksComponent,
     GenresComponent,
     ErrorComponent,
-    WelcomeComponent
+    WelcomeComponent,
+    AuthorsTableComponent
   ],
   imports: [
     BrowserModule,
@@ -42,6 +45,7 @@ import {MatSortHeader, MatSortModule} from "@angular/material/sort";
     MatPaginatorModule,
     MatInputModule,
     MatSortModule,
+    MatProgressSpinnerModule
   ],
   providers: [],
   bootstrap: [AppComponent]

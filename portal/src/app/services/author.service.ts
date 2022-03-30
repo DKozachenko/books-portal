@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {Observable} from "rxjs";
+import {delay, Observable} from "rxjs";
 import {Author} from "../interfaces/Author";
 import {environment} from "../../environments/environment";
 
@@ -13,7 +13,7 @@ export class AuthorService {
   constructor(private http: HttpClient) { }
 
   public getAllAuthors(): Observable<Author[]> {
-    return this.http.get<Author[]>(`${environment.serverConnection}/${this.controllerName}`)
+    return this.http.get<Author[]>(`${environment.serverConnection}/${this.controllerName}`).pipe(delay(1500))
   }
 
   public getAuthor(id: number): Observable<Author> {
