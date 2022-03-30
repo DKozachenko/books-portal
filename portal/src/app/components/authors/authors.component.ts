@@ -4,6 +4,7 @@ import {MatPaginator} from "@angular/material/paginator";
 import {MatSort} from "@angular/material/sort";
 import {Author} from "../../interfaces/Author";
 import {AuthorService} from "../../services/author.service";
+import {AuthorView} from "../../interfaces/AuthorView";
 
 @Component({
   selector: 'app-authors',
@@ -11,9 +12,11 @@ import {AuthorService} from "../../services/author.service";
   styleUrls: ['./authors.component.sass']
 })
 export class AuthorsComponent implements OnInit {
-  public displayedColumns: string[] = ['id', 'firstName', 'lastName', 'aboutText'];
-  public tableSource: MatTableDataSource<Author> = new MatTableDataSource<Author>();
-  public authors: Author[] = []
+  private authors: Author[] = []
+  public displayedColumns: string[] = ['number', 'fullName', 'about', 'actions'];
+  public tableSource: MatTableDataSource<AuthorView> = new MatTableDataSource<AuthorView>();
+
+  public authorsView: AuthorView[] = []
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -23,7 +26,18 @@ export class AuthorsComponent implements OnInit {
   ngOnInit(): void {
     this.service.getAllAuthors().subscribe((items: Author[]) => {
       this.authors = items
-      this.tableSource = new MatTableDataSource(this.authors);
+      items.forEach((author: Author) => {
+        const authorView: AuthorView = {
+          id: author.id ?? 0,
+          number: this.authorsView.length + 1,
+          fullName: author.firstName + " " + author.lastName,
+          about: author.aboutText
+        }
+
+        this.authorsView.push(authorView)
+      })
+
+      this.tableSource = new MatTableDataSource(this.authorsView);
 
       this.tableSource.paginator = this.paginator;
       this.tableSource.sort = this.sort;
