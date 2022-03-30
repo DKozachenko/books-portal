@@ -3,10 +3,11 @@
     <mat-form-field class="me-4 filter" appearance="standard">
       <mat-label class="text-white">Filter</mat-label>
       <input class="text-white" matInput (keyup)="applyFilter($event)" #input>
-
     </mat-form-field>
 
-    <div class="me-3 action"><mat-icon class="text-white">add_circle_outline</mat-icon></div>
+    <div class="me-3 action" (click)="openReadDialog()">
+      <mat-icon class="text-white">add_circle_outline</mat-icon>
+    </div>
   </div>
 
   <div class="mat-elevation-z8 border-0">
