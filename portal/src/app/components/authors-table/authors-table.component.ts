@@ -4,8 +4,10 @@ import {AuthorView} from "../../interfaces/AuthorView";
 import {MatPaginator} from "@angular/material/paginator";
 import {MatSort} from "@angular/material/sort";
 import {MatDialog} from "@angular/material/dialog";
-import {DialogComponent} from "../dialog/dialog.component";
 import {Author} from "../../interfaces/Author";
+import {AuthorDialogComponent} from "../author-dialog/author-dialog.component";
+import {BookService} from "../../services/book.service";
+import {Book} from "../../interfaces/Book";
 
 @Component({
   selector: 'app-authors-table',
@@ -14,6 +16,7 @@ import {Author} from "../../interfaces/Author";
 })
 export class AuthorsTableComponent implements OnInit {
   @Input() public tableSource: MatTableDataSource<AuthorView> = new MatTableDataSource<AuthorView>();
+  @Input() public books: Book[] = [];
   public displayedColumns: string[] = ['number', 'fullName', 'about', 'actions'];
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -45,12 +48,14 @@ export class AuthorsTableComponent implements OnInit {
       firstName: '',
       lastName: '',
       dateBirth: new Date(),
-      aboutText: ''
+      aboutText: '',
+      country: '',
+      books: []
     }
 
-    const dialogRef = this.dialog.open(DialogComponent, {
-      width: '250px',
-      data: currentAuthor,
+    const dialogRef = this.dialog.open(AuthorDialogComponent, {
+      width: '350px',
+      data: currentAuthor
     });
 
     dialogRef.afterClosed().subscribe(result => {

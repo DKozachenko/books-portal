@@ -21,7 +21,10 @@ import {MatSortHeader, MatSortModule} from "@angular/material/sort";
 import { AuthorsTableComponent } from './components/authors-table/authors-table.component';
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {MatDialogModule} from "@angular/material/dialog";
-import { DialogComponent } from './components/dialog/dialog.component';
+import { AuthorDialogComponent } from './components/author-dialog/author-dialog.component';
+import {MatSelectModule} from "@angular/material/select";
+import {MatDatepickerModule} from "@angular/material/datepicker";
+import {MatNativeDateModule} from "@angular/material/core";
 
 @NgModule({
   declarations: [
@@ -32,7 +35,7 @@ import { DialogComponent } from './components/dialog/dialog.component';
     ErrorComponent,
     WelcomeComponent,
     AuthorsTableComponent,
-    DialogComponent
+    AuthorDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -49,7 +52,10 @@ import { DialogComponent } from './components/dialog/dialog.component';
     MatInputModule,
     MatSortModule,
     MatProgressSpinnerModule,
-    MatDialogModule
+    MatDialogModule,
+    MatSelectModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

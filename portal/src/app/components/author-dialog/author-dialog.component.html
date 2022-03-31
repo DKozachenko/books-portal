@@ -1,0 +1,50 @@
+<h1 mat-dialog-title>Add author</h1>
+<div mat-dialog-content>
+  <form [formGroup]="form">
+    <mat-form-field appearance="fill" class="w-100">
+      <mat-label class="text-black">First Name</mat-label>
+      <input matInput formControlName="firstName">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="w-100">
+      <mat-label class="text-black">Last Name</mat-label>
+      <input matInput formControlName="lastName">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="w-100">
+      <mat-label class="text-black">About Text</mat-label>
+      <textarea matInput formControlName="aboutText"></textarea>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="w-100">
+      <mat-label class="text-black">Choose a date</mat-label>
+      <input matInput [matDatepicker]="picker">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="w-100">
+      <mat-label class="text-black">Country</mat-label>
+      <input matInput formControlName="country">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="w-100">
+      <mat-label class="text-black">Books</mat-label>
+      <mat-select formControlName="books" multiple>
+        <mat-option *ngFor="let book of books" [value]="book.title">{{book.title}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+  </form>
+</div>
+
+<div mat-dialog-actions class="d-flex justify-content-end">
+  <div class="action me-2" (click)="onNoClick()">
+    <mat-icon>cancel</mat-icon>
+  </div>
+
+  <div (click)="add()">
+    <mat-icon>check</mat-icon>
+  </div>
+</div>
+

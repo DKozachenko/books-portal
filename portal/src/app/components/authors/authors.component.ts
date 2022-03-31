@@ -3,6 +3,7 @@ import {MatTableDataSource} from "@angular/material/table";
 import {Author} from "../../interfaces/Author";
 import {AuthorService} from "../../services/author.service";
 import {AuthorView} from "../../interfaces/AuthorView";
+import {Book} from "../../interfaces/Book";
 
 @Component({
   selector: 'app-authors',
@@ -16,11 +17,11 @@ export class AuthorsComponent implements OnInit {
 
   public isLoading: boolean = true
 
-  constructor(private service: AuthorService) {
+  constructor(private authorService: AuthorService) {
   }
 
   ngOnInit(): void {
-    this.service.getAllAuthors().subscribe((items: Author[]) => {
+    this.authorService.getAllAuthors().subscribe((items: Author[]) => {
       this.authors = items
       this.fillAuthorsView(items)
       this.tableSource = new MatTableDataSource(this.authorsView);
