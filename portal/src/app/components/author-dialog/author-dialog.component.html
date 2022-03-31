@@ -3,34 +3,52 @@
   <form [formGroup]="form">
     <mat-form-field appearance="fill" class="w-100">
       <mat-label class="text-black">First Name</mat-label>
-      <input matInput formControlName="firstName">
+      <input matInput formControlName="firstName" [(ngModel)]="newAuthor.firstName">
+
+      <div *ngIf="form.get('firstName')?.touched && form.get('firstName')?.errors" class="errors">
+        <small *ngIf="form.touched && form.get('firstName')?.errors?.['required']" class="text-danger">Field is required</small>
+        <small *ngIf="form.touched && form.get('firstName')?.errors?.['maxlength']" class="text-danger">Field is too long, less 100 symbols</small>
+      </div>
     </mat-form-field>
 
     <mat-form-field appearance="fill" class="w-100">
       <mat-label class="text-black">Last Name</mat-label>
-      <input matInput formControlName="lastName">
+      <input matInput formControlName="lastName" [(ngModel)]="newAuthor.lastName">
+
+      <div *ngIf="form.get('lastName')?.touched && form.get('lastName')?.errors" class="errors">
+        <small *ngIf="form.touched && form.get('lastName')?.errors?.['required']" class="text-danger">Field is required</small>
+        <small *ngIf="form.touched && form.get('lastName')?.errors?.['maxlength']" class="text-danger">Field is too long, less 100 symbols</small>
+      </div>
     </mat-form-field>
 
     <mat-form-field appearance="fill" class="w-100">
       <mat-label class="text-black">About Text</mat-label>
-      <textarea matInput formControlName="aboutText"></textarea>
+      <textarea matInput formControlName="aboutText" [(ngModel)]="newAuthor.aboutText"></textarea>
+
+      <div *ngIf="form.get('aboutText')?.touched && form.get('aboutText')?.errors" class="errors">
+        <small *ngIf="form.touched && form.get('aboutText')?.errors?.['required']" class="text-danger">Field is required</small>
+      </div>
     </mat-form-field>
 
     <mat-form-field appearance="fill" class="w-100">
       <mat-label class="text-black">Choose a date</mat-label>
-      <input matInput [matDatepicker]="picker">
+      <input matInput [matDatepicker]="picker" formControlName="dateBirth" [(ngModel)]="newAuthor.dateBirth">
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
+
+      <div *ngIf="form.get('dateBirth')?.touched && form.get('dateBirth')?.errors" class="errors">
+        <small *ngIf="form.touched && form.get('dateBirth')?.errors?.['required']" class="text-danger">Field is required</small>
+      </div>
     </mat-form-field>
 
     <mat-form-field appearance="fill" class="w-100">
       <mat-label class="text-black">Country</mat-label>
-      <input matInput formControlName="country">
+      <input matInput formControlName="country"[(ngModel)]="newAuthor.country">
     </mat-form-field>
 
     <mat-form-field appearance="fill" class="w-100">
       <mat-label class="text-black">Books</mat-label>
-      <mat-select formControlName="books" multiple>
+      <mat-select formControlName="books" multiple (selectionChange)="changeBookNames($event)">
         <mat-option *ngFor="let book of books" [value]="book.title">{{book.title}}</mat-option>
       </mat-select>
     </mat-form-field>
@@ -39,11 +57,11 @@
 </div>
 
 <div mat-dialog-actions class="d-flex justify-content-end">
-  <div class="action me-2" (click)="onNoClick()">
+  <div class="action me-2" (click)="close()">
     <mat-icon>cancel</mat-icon>
   </div>
 
-  <div (click)="add()">
+  <div [hidden]="form.invalid" [mat-dialog-close]="newAuthor" class="action">
     <mat-icon>check</mat-icon>
   </div>
 </div>

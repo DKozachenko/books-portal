@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {MatTableDataSource} from "@angular/material/table";
 import {AuthorView} from "../../interfaces/AuthorView";
 import {MatPaginator} from "@angular/material/paginator";
@@ -8,6 +8,7 @@ import {Author} from "../../interfaces/Author";
 import {AuthorDialogComponent} from "../author-dialog/author-dialog.component";
 import {BookService} from "../../services/book.service";
 import {Book} from "../../interfaces/Book";
+import {AuthorService} from "../../services/author.service";
 
 @Component({
   selector: 'app-authors-table',
@@ -22,7 +23,10 @@ export class AuthorsTableComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(public dialog: MatDialog) { }
+  @Output() onAdd: EventEmitter<Author> = new EventEmitter<Author>()
+
+  constructor(public dialog: MatDialog,
+              private authorService: AuthorService) { }
 
   ngOnInit(): void {
 
@@ -42,9 +46,8 @@ export class AuthorsTableComponent implements OnInit {
     }
   }
 
-  public openReadDialog(): void {
+  public openAddDialog(): void {
     const currentAuthor: Author = {
-      id: 0,
       firstName: '',
       lastName: '',
       dateBirth: new Date(),
@@ -58,8 +61,8 @@ export class AuthorsTableComponent implements OnInit {
       data: currentAuthor
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
+    dialogRef.afterClosed().subscribe((author: Author) => {
+      this.onAdd.emit(author)
     });
   }
 

@@ -7,7 +7,7 @@
   </div>
 
   <ng-template #table>
-    <app-authors-table [tableSource]="tableSource"></app-authors-table>
+    <app-authors-table [tableSource]="tableSource" (onAdd)="addAuthor($event)"></app-authors-table>
   </ng-template>
 
 </div>

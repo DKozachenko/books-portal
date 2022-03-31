@@ -35,7 +35,9 @@ namespace WebAPI
             string con = "Data Source = (localdb)\\MSSQLLocalDB; Initial catalog = BooksPortal; Integrated Security = true";
             services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(con));
 
-            services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson(options =>
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+            );
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebAPI", Version = "v1" });

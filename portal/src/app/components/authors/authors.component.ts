@@ -21,13 +21,25 @@ export class AuthorsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.getSource()
+  }
+
+  public addAuthor(author: Author) {
+    this.authorService.addAuthor(author).subscribe((author: Author) => {
+      console.log(author)
+      this.getSource()
+    })
+
+  }
+
+  private getSource() {
+    this.isLoading= true
     this.authorService.getAllAuthors().subscribe((items: Author[]) => {
       this.authors = items
       this.fillAuthorsView(items)
       this.tableSource = new MatTableDataSource(this.authorsView);
       this.isLoading = false
     })
-
   }
 
   private fillAuthorsView(items: Author[]) {
@@ -43,5 +55,7 @@ export class AuthorsComponent implements OnInit {
       this.authorsView.push(authorView)
     })
   }
+
+
 
 }
