@@ -42,6 +42,7 @@ export class AuthorDialogComponent implements OnInit {
 
     this.bookService.getAllBooks().subscribe((books: Book[]) => {
       this.books = books
+      console.log(this.books)
     })
   }
 
@@ -59,8 +60,8 @@ export class AuthorDialogComponent implements OnInit {
     this.newAuthor.books = []
 
     bookNames.forEach((bookName: string) => {
-      const book: Book = this.books.find((b: Book) => b.title === bookName) ?? {title: '', size: 0, description: '', datePublication: new Date(), ageLimit: 0, writers: [], genres: []}
-      delete book.id
+      const book: Book = this.books.find((b: Book) => b.title === bookName) ?? {id: 0, title: '', size: 0, description: '', datePublication: new Date(), ageLimit: 0, writers: [], genres: []}
+      
 
       this.newAuthor.books?.push(book)
     })

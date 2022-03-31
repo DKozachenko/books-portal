@@ -36,6 +36,16 @@ namespace WebAPI.Controllers
         [HttpPost]
         public JsonResult AddAuthor(Author NewAuthor)
         {
+            var AddedBooks = NewAuthor.Books;
+            NewAuthor.Books = new List<Book>();
+
+            
+            foreach (var CurrentBook in AddedBooks)
+            {
+                var ExistBook = _db.Books.SingleOrDefault(B => B.Id == CurrentBook.Id);
+                NewAuthor.Books.Add(ExistBook);
+            }
+
             _db.Authors.Add(NewAuthor);
             _db.SaveChanges();
             return new JsonResult(NewAuthor);
