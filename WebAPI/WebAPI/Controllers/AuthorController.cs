@@ -36,26 +36,55 @@ namespace WebAPI.Controllers
         [HttpPost]
         public JsonResult AddAuthor(Author NewAuthor)
         {
-            var AddedBooks = NewAuthor.Books;
-            NewAuthor.Books = new List<Book>();
-
-            
-            foreach (var CurrentBook in AddedBooks)
+            if (NewAuthor != null)
             {
-                var ExistBook = _db.Books.SingleOrDefault(B => B.Id == CurrentBook.Id);
-                NewAuthor.Books.Add(ExistBook);
-            }
+                var AddedBooks = NewAuthor.Books;
+                NewAuthor.Books = new List<Book>();
 
-            _db.Authors.Add(NewAuthor);
-            _db.SaveChanges();
+
+                foreach (var AddBook in AddedBooks)
+                {
+                    var ExistedBook = _db.Books.SingleOrDefault(B => B.Id == AddBook.Id);
+
+                    if (ExistedBook != null)
+                    {
+                        NewAuthor.Books.Add(ExistedBook);
+                    }
+                    
+                }
+
+                _db.Authors.Add(NewAuthor);
+                _db.SaveChanges();
+            }
+            
             return new JsonResult(NewAuthor);
         }
 
         [HttpPut]
         public JsonResult UpdateAuthor(Author UpdatedAuthor)
         {
-            _db.Authors.Update(UpdatedAuthor);
-            _db.SaveChanges();
+            if (UpdatedAuthor != null)
+            {
+                var UpdatedBooks = UpdatedAuthor.Books;
+                UpdatedAuthor.Books = new List<Book>();
+
+
+                foreach (var UpdateBook in UpdatedBooks)
+                {
+                    var ExistedBook = _db.Books.SingleOrDefault(B => B.Id == UpdateBook.Id);
+
+                    if (ExistedBook != null)
+                    {
+                        UpdatedAuthor.Books.Add(ExistedBook);
+                    }
+
+                }
+
+                _db.Authors.Update(UpdatedAuthor);
+                _db.SaveChanges();
+            }
+
+            
             return new JsonResult(UpdatedAuthor);
         }
         [HttpDelete]

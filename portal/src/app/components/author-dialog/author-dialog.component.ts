@@ -61,7 +61,7 @@ export class AuthorDialogComponent implements OnInit {
 
     bookNames.forEach((bookName: string) => {
       const book: Book = this.books.find((b: Book) => b.title === bookName) ?? {id: 0, title: '', size: 0, description: '', datePublication: new Date(), ageLimit: 0, writers: [], genres: []}
-      
+
 
       this.newAuthor.books?.push(book)
     })
