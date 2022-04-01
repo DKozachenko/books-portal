@@ -4,6 +4,7 @@ import {Author} from "../../interfaces/Author";
 import {AuthorService} from "../../services/author.service";
 import {AuthorView} from "../../interfaces/AuthorView";
 import {Book} from "../../interfaces/Book";
+import {NgToastService} from "ng-angular-popup";
 
 @Component({
   selector: 'app-authors',
@@ -11,31 +12,21 @@ import {Book} from "../../interfaces/Book";
   styleUrls: ['./authors.component.sass']
 })
 export class AuthorsComponent implements OnInit {
-  private authors: Author[] = []
   public tableSource: MatTableDataSource<AuthorView> = new MatTableDataSource<AuthorView>();
   public authorsView: AuthorView[] = []
-
   public isLoading: boolean = true
 
-  constructor(private authorService: AuthorService) {
+  constructor(private authorService: AuthorService,
+              private toastService: NgToastService) {
   }
 
   ngOnInit(): void {
-    this.getSource()
-  }
-
-  public addAuthor(author: Author) {
-    this.authorService.addAuthor(author).subscribe((author: Author) => {
-      console.log(author)
-      this.getSource()
-    })
-
-  }
-
-  private getSource() {
     this.isLoading= true
+    this.getAllAuthors()
+  }
+
+  private getAllAuthors() {
     this.authorService.getAllAuthors().subscribe((items: Author[]) => {
-      this.authors = items
       this.fillAuthorsView(items)
       this.tableSource = new MatTableDataSource(this.authorsView);
       this.isLoading = false
@@ -56,6 +47,13 @@ export class AuthorsComponent implements OnInit {
     })
   }
 
-
-
+  public addAuthor(author: Author) {
+    if (author) {
+      this.isLoading= true
+      this.authorService.addAuthor(author).subscribe((author: Author) => {
+        this.getAllAuthors()
+        this.toastService.success({detail:"SUCCESS",summary: `Author was added with id ${author.id}`,duration:3000})
+      })
+    }
+  }
 }

@@ -4,8 +4,6 @@ import {Author} from "../../interfaces/Author";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {BookService} from "../../services/book.service";
 import {Book} from "../../interfaces/Book";
-import {forkJoin} from "rxjs";
-import {Event} from "@angular/router";
 
 @Component({
   selector: 'app-author-dialog',
@@ -21,7 +19,6 @@ export class AuthorDialogComponent implements OnInit {
     country: '',
     books: []
   }
-
   public form: FormGroup = new FormGroup({
     firstName: new FormControl('', [Validators.required, Validators.maxLength(100)]),
     lastName: new FormControl('', [Validators.required, Validators.maxLength(100)]),
@@ -30,7 +27,6 @@ export class AuthorDialogComponent implements OnInit {
     country: new FormControl(''),
     books: new FormControl('')
   })
-
   public books: Book[] = []
 
   constructor(public dialogRef: MatDialogRef<AuthorDialogComponent>,
@@ -39,31 +35,40 @@ export class AuthorDialogComponent implements OnInit {
 
   ngOnInit(): void {
     this.newAuthor = this.data
-
     this.bookService.getAllBooks().subscribe((books: Book[]) => {
       this.books = books
-      console.log(this.books)
     })
+  }
+
+  private fillAuthorBooksByBookNames(bookNames: string[]): void {
+    bookNames.forEach((bookName: string) => {
+      const book: Book = this.books.find((b: Book) => b.title === bookName) ?? {
+        id: 0,
+        title: '',
+        description: '',
+        datePublication: new Date(),
+        size: 0,
+        ageLimit: 0,
+        writers: [],
+        genres: []
+      }
+
+      this.newAuthor.books?.push(book)
+    })
+  }
+
+  public changeBookNames(event: any): void {
+    let bookNames: string[] = []
+    if (this.form.get('books')?.value) {
+      bookNames = this.form.get('books')?.value
+    }
+
+    this.newAuthor.books = []
+    this.fillAuthorBooksByBookNames(bookNames)
   }
 
   public close(): void {
     this.dialogRef.close();
   }
 
-  public changeBookNames(event: any): void {
-    let bookNames: string[] = []
-
-    if (this.form.get('books')?.value) {
-      bookNames = this.form.get('books')?.value
-    }
-
-    this.newAuthor.books = []
-
-    bookNames.forEach((bookName: string) => {
-      const book: Book = this.books.find((b: Book) => b.title === bookName) ?? {id: 0, title: '', size: 0, description: '', datePublication: new Date(), ageLimit: 0, writers: [], genres: []}
-
-
-      this.newAuthor.books?.push(book)
-    })
-  }
 }

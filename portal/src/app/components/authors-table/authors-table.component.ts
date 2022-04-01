@@ -6,9 +6,7 @@ import {MatSort} from "@angular/material/sort";
 import {MatDialog} from "@angular/material/dialog";
 import {Author} from "../../interfaces/Author";
 import {AuthorDialogComponent} from "../author-dialog/author-dialog.component";
-import {BookService} from "../../services/book.service";
 import {Book} from "../../interfaces/Book";
-import {AuthorService} from "../../services/author.service";
 
 @Component({
   selector: 'app-authors-table',
@@ -16,20 +14,17 @@ import {AuthorService} from "../../services/author.service";
   styleUrls: ['./authors-table.component.sass']
 })
 export class AuthorsTableComponent implements OnInit {
+  @Output() private onAdd: EventEmitter<Author> = new EventEmitter<Author>()
+
+  public displayedColumns: string[] = ['number', 'fullName', 'about', 'actions'];
   @Input() public tableSource: MatTableDataSource<AuthorView> = new MatTableDataSource<AuthorView>();
   @Input() public books: Book[] = [];
-  public displayedColumns: string[] = ['number', 'fullName', 'about', 'actions'];
+  @ViewChild(MatPaginator) public paginator!: MatPaginator;
+  @ViewChild(MatSort) public sort!: MatSort;
 
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild(MatSort) sort!: MatSort;
-
-  @Output() onAdd: EventEmitter<Author> = new EventEmitter<Author>()
-
-  constructor(public dialog: MatDialog,
-              private authorService: AuthorService) { }
+  constructor(public dialog: MatDialog) { }
 
   ngOnInit(): void {
-
   }
 
   ngAfterViewInit(): void {

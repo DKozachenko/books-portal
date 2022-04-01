@@ -31,7 +31,7 @@
     </mat-form-field>
 
     <mat-form-field appearance="fill" class="w-100">
-      <mat-label class="text-black">Choose a date</mat-label>
+      <mat-label class="text-black">Choose a birth date</mat-label>
       <input matInput [matDatepicker]="picker" formControlName="dateBirth" [(ngModel)]="newAuthor.dateBirth">
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
@@ -43,7 +43,7 @@
 
     <mat-form-field appearance="fill" class="w-100">
       <mat-label class="text-black">Country</mat-label>
-      <input matInput formControlName="country"[(ngModel)]="newAuthor.country">
+      <input matInput formControlName="country" [(ngModel)]="newAuthor.country">
     </mat-form-field>
 
     <mat-form-field appearance="fill" class="w-100">

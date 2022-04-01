@@ -56,6 +56,7 @@ import {MatNativeDateModule} from "@angular/material/core";
     MatSelectModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    NgToastModule
   ],
   providers: [],
   bootstrap: [AppComponent]
