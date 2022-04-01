@@ -34,7 +34,7 @@
           <div class="d-flex">
             <div class="me-2 action"><mat-icon>search</mat-icon></div>
             <div class="me-2 action"><mat-icon>edit</mat-icon></div>
-            <div class="action"><mat-icon>delete</mat-icon></div>
+            <div class="action" (click)="delete(row.id)"><mat-icon>delete</mat-icon></div>
           </div>
         </td>
       </ng-container>

@@ -15,6 +15,7 @@ import {Book} from "../../interfaces/Book";
 })
 export class AuthorsTableComponent implements OnInit {
   @Output() private onAdd: EventEmitter<Author> = new EventEmitter<Author>()
+  @Output() private onDelete: EventEmitter<number> = new EventEmitter<number>()
 
   public displayedColumns: string[] = ['number', 'fullName', 'about', 'actions'];
   @Input() public tableSource: MatTableDataSource<AuthorView> = new MatTableDataSource<AuthorView>();
@@ -59,6 +60,10 @@ export class AuthorsTableComponent implements OnInit {
     dialogRef.afterClosed().subscribe((author: Author) => {
       this.onAdd.emit(author)
     });
+  }
+
+  public delete(id: number) {
+    this.onDelete.emit(id)
   }
 
 }

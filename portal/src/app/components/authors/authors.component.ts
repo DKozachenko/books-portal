@@ -56,4 +56,14 @@ export class AuthorsComponent implements OnInit {
       })
     }
   }
+
+  public deleteAuthor(id: number): void {
+    if (id) {
+      this.isLoading = true
+      this.authorService.deleteAuthor(id).subscribe((author: Author) => {
+        this.getAllAuthors()
+        this.toastService.error({detail:"ERROR",summary:`Author with id ${author.id} was deleted`,duration:3000});
+      })
+    }
+  }
 }
