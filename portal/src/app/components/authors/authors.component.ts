@@ -19,6 +19,7 @@ export class AuthorsComponent implements OnInit {
   public books: Book[] = []
   public isLoadingAuthors: boolean = true
   public isLoadingBooks: boolean = true
+  public isError: boolean = false
 
   constructor(private authorService: AuthorService,
               private bookService: BookService,
@@ -38,6 +39,16 @@ export class AuthorsComponent implements OnInit {
       this.fillAuthorsView(items)
       this.tableSource = new MatTableDataSource(this.authorsView);
       this.isLoadingAuthors = false
+    })
+    this.authorService.getAllAuthors().subscribe({
+      next: (items: Author[]) => {
+        this.fillAuthorsView(items)
+        this.tableSource = new MatTableDataSource(this.authorsView);
+        this.isLoadingAuthors = false
+      },
+      error: (err) => {
+        this.isError = true
+      }
     })
   }
 

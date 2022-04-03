@@ -2,14 +2,23 @@
   <mat-icon class="text-white mb-3 border border-1 border-white rounded-2 back" (click)="back()">keyboard_backspace</mat-icon>
   <h1 class="text-white">Authors</h1>
 
-  <div *ngIf="isLoadingAuthors || isLoadingBooks; else table" class="d-flex flex-column align-items-center">
-    <h2 class="text-white mb-5">Loading...</h2>
-    <mat-spinner></mat-spinner>
+  <div *ngIf="!isError; else error">
+    <div *ngIf="isLoadingAuthors || isLoadingBooks; else table" class="d-flex flex-column align-items-center">
+      <h2 class="text-white mb-5">Loading...</h2>
+      <mat-spinner></mat-spinner>
+    </div>
+
+    <ng-template #table>
+      <app-authors-table [tableSource]="tableSource" [books]="books" (onAdd)="addAuthor($event)" (onUpdate)="updateAuthor($event)" (onDelete)="deleteAuthor($event)" (onDeleteAll)="deleteAllAuthors()"></app-authors-table>
+    </ng-template>
   </div>
 
-  <ng-template #table>
-    <app-authors-table [tableSource]="tableSource" [books]="books" (onAdd)="addAuthor($event)" (onUpdate)="updateAuthor($event)" (onDelete)="deleteAuthor($event)" (onDeleteAll)="deleteAllAuthors()"></app-authors-table>
+  <ng-template #error>
+    <h2 class="text-white">Something goes wrong with server</h2>
   </ng-template>
+
 
   <lib-ng-toast></lib-ng-toast>
 </div>
+
+
