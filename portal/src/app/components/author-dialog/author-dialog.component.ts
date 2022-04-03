@@ -19,6 +19,7 @@ export class AuthorDialogComponent implements OnInit {
     country: '',
     books: []
   }
+  public books: Book[] = []
   public form: FormGroup = new FormGroup({
     firstName: new FormControl('', [Validators.required, Validators.maxLength(100)]),
     lastName: new FormControl('', [Validators.required, Validators.maxLength(100)]),
@@ -27,17 +28,21 @@ export class AuthorDialogComponent implements OnInit {
     country: new FormControl(''),
     books: new FormControl('')
   })
-  public books: Book[] = []
+
 
   constructor(public dialogRef: MatDialogRef<AuthorDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: Author,
-              private bookService: BookService) { }
+              @Inject(MAT_DIALOG_DATA) public data: { author: Author | null, books: Book[] }) { }
 
   ngOnInit(): void {
-    this.newAuthor = this.data
-    this.bookService.getAllBooks().subscribe((books: Book[]) => {
-      this.books = books
-    })
+    this.newAuthor = this.data.author ?? {
+      firstName: '',
+      lastName: '',
+      dateBirth: new Date(),
+      aboutText: '',
+      country: '',
+      books: []
+    }
+    this.books = this.data.books
   }
 
   private fillAuthorBooksByBookNames(bookNames: string[]): void {

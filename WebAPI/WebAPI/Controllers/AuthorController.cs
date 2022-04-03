@@ -68,16 +68,18 @@ namespace WebAPI.Controllers
                 var UpdatedBooks = UpdatedAuthor.Books;
                 UpdatedAuthor.Books = new List<Book>();
 
-
-                foreach (var UpdateBook in UpdatedBooks)
+                if (UpdatedBooks != null)
                 {
-                    var ExistedBook = _db.Books.SingleOrDefault(B => B.Id == UpdateBook.Id);
-
-                    if (ExistedBook != null)
+                    foreach (var UpdateBook in UpdatedBooks)
                     {
-                        UpdatedAuthor.Books.Add(ExistedBook);
-                    }
+                        var ExistedBook = _db.Books.SingleOrDefault(B => B.Id == UpdateBook.Id);
 
+                        if (ExistedBook != null)
+                        {
+                            UpdatedAuthor.Books.Add(ExistedBook);
+                        }
+
+                    }
                 }
 
                 _db.Authors.Update(UpdatedAuthor);

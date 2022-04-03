@@ -1,4 +1,8 @@
-<h1 mat-dialog-title>Add author</h1>
+<h1 mat-dialog-title *ngIf="newAuthor.id; else addTitle">Update author</h1>
+<ng-template #addTitle>
+  <h1 mat-dialog-title>Add author</h1>
+</ng-template>
+
 <div mat-dialog-content>
   <form [formGroup]="form">
     <mat-form-field appearance="fill" class="w-100">
