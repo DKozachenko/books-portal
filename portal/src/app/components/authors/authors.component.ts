@@ -94,6 +94,15 @@ export class AuthorsComponent implements OnInit {
     }
   }
 
+  public deleteAllAuthors(): void {
+    this.isLoadingAuthors = true
+    this.authorService.deleteAllAuthors().subscribe(() => {
+      this.getAllAuthors()
+      this.toastService.info({detail:"INFO",summary:`You deleted all authors`,duration:3000})
+    })
+
+  }
+
   public back(): void {
     this.location.back()
   }

@@ -68,6 +68,15 @@ namespace WebAPI.Controllers
             {
                 _db.Entry(UpdatedAuthor).State = EntityState.Detached;
                 var ExistedAuthor = _db.Authors.Include(A => A.Books).SingleOrDefault(A => A.Id == UpdatedAuthor.Id);
+                
+                ExistedAuthor.FirstName = UpdatedAuthor.FirstName;
+                ExistedAuthor.LastName = UpdatedAuthor.LastName;
+                ExistedAuthor.DateBirth = UpdatedAuthor.DateBirth;
+                ExistedAuthor.Country = UpdatedAuthor.Country;
+                ExistedAuthor.AboutText = UpdatedAuthor.AboutText;
+
+
+
                 var UpdatedBooks = UpdatedAuthor.Books;
                 
                 if (UpdatedBooks != null)

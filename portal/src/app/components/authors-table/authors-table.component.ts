@@ -19,6 +19,7 @@ export class AuthorsTableComponent implements OnInit {
   @Output() private onAdd: EventEmitter<Author> = new EventEmitter<Author>()
   @Output() private onUpdate: EventEmitter<Author> = new EventEmitter<Author>()
   @Output() private onDelete: EventEmitter<number> = new EventEmitter<number>()
+  @Output() private onDeleteAll: EventEmitter<void> = new EventEmitter<void>()
 
   public displayedColumns: string[] = ['number', 'fullName', 'about', 'actions'];
   @Input() public tableSource: MatTableDataSource<AuthorView> = new MatTableDataSource<AuthorView>();
@@ -91,6 +92,10 @@ export class AuthorsTableComponent implements OnInit {
 
   public delete(id: number) {
     this.onDelete.emit(id)
+  }
+
+  public deleteAll(): void {
+    this.onDeleteAll.emit()
   }
 
 }

@@ -8,7 +8,7 @@
   </div>
 
   <ng-template #table>
-    <app-authors-table [tableSource]="tableSource" [books]="books" (onAdd)="addAuthor($event)" (onUpdate)="updateAuthor($event)" (onDelete)="deleteAuthor($event)"></app-authors-table>
+    <app-authors-table [tableSource]="tableSource" [books]="books" (onAdd)="addAuthor($event)" (onUpdate)="updateAuthor($event)" (onDelete)="deleteAuthor($event)" (onDeleteAll)="deleteAllAuthors()"></app-authors-table>
   </ng-template>
 
   <lib-ng-toast></lib-ng-toast>
