@@ -1,4 +1,5 @@
 <div class="authors py-5">
+  <mat-icon class="text-white mb-3 border border-1 border-white rounded-2 back" (click)="back()">keyboard_backspace</mat-icon>
   <h1 class="text-white">Authors</h1>
 
   <div *ngIf="isLoadingAuthors || isLoadingBooks; else table" class="d-flex flex-column align-items-center">

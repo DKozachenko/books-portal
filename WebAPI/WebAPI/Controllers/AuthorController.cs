@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,7 +30,7 @@ namespace WebAPI.Controllers
         [HttpGet("{id}")]
         public JsonResult GetAuthor(long Id)
         {
-            var RequiredAuthor = _db.Authors.SingleOrDefault(A => A.Id == Id);
+            var RequiredAuthor = _db.Authors.Include(A => A.Books).SingleOrDefault(A => A.Id == Id);
             return new JsonResult(RequiredAuthor);
         }
 
@@ -65,28 +66,31 @@ namespace WebAPI.Controllers
         {
             if (UpdatedAuthor != null)
             {
+                _db.Entry(UpdatedAuthor).State = EntityState.Detached;
+                var ExistedAuthor = _db.Authors.Include(A => A.Books).SingleOrDefault(A => A.Id == UpdatedAuthor.Id);
                 var UpdatedBooks = UpdatedAuthor.Books;
-                UpdatedAuthor.Books = new List<Book>();
-
+                
                 if (UpdatedBooks != null)
                 {
+                    ExistedAuthor.Books.Clear();
+
                     foreach (var UpdateBook in UpdatedBooks)
                     {
                         var ExistedBook = _db.Books.SingleOrDefault(B => B.Id == UpdateBook.Id);
 
                         if (ExistedBook != null)
                         {
-                            UpdatedAuthor.Books.Add(ExistedBook);
+                            ExistedAuthor.Books.Add(ExistedBook);
                         }
 
                     }
+                    _db.Authors.Update(ExistedAuthor);
+                    _db.SaveChanges();
                 }
 
-                _db.Authors.Update(UpdatedAuthor);
-                _db.SaveChanges();
             }
 
-            
+
             return new JsonResult(UpdatedAuthor);
         }
         [HttpDelete]

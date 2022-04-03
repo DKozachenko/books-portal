@@ -1,0 +1,25 @@
+<h1 mat-dialog-title>Read author</h1>
+
+<div mat-dialog-content>
+  <mat-card class="example-card">
+    <mat-card-title class="fs-1 lh-1 mb-4">{{ currentAuthor.firstName + " " + currentAuthor.lastName}}</mat-card-title>
+    <mat-card-content>
+      <p class="fs-3 lh-1">{{ currentAuthor.aboutText }}</p>
+      <p>{{ currentAuthor.country }}</p>
+      <p>{{ currentAuthor.dateBirth | date:'longDate' }}</p>
+
+      <mat-divider></mat-divider>
+
+      <mat-list role="list">
+        <div mat-subheader>Books</div>
+        <mat-list-item *ngFor="let book of currentAuthor.books" role="listitem">{{ book.title }}</mat-list-item>
+      </mat-list>
+    </mat-card-content>
+  </mat-card>
+</div>
+
+<div mat-dialog-actions class="d-flex justify-content-end">
+  <div class="action me-2" (click)="close()">
+    <mat-icon>cancel</mat-icon>
+  </div>
+</div>

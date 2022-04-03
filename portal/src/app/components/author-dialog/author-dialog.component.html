@@ -53,7 +53,7 @@
     <mat-form-field appearance="fill" class="w-100">
       <mat-label class="text-black">Books</mat-label>
       <mat-select formControlName="books" multiple (selectionChange)="changeBookNames($event)">
-        <mat-option *ngFor="let book of books" [value]="book.title">{{book.title}}</mat-option>
+        <mat-option *ngFor="let book of books" [value]="book.title" selected>{{book.title}}</mat-option>
       </mat-select>
     </mat-form-field>
 

@@ -8,6 +8,7 @@ import {Author} from "../../interfaces/Author";
 import {AuthorDialogComponent} from "../author-dialog/author-dialog.component";
 import {Book} from "../../interfaces/Book";
 import {AuthorService} from "../../services/author.service";
+import {AuthorReadDialogComponent} from "../author-read-dialog/author-read-dialog.component";
 
 @Component({
   selector: 'app-authors-table',
@@ -59,6 +60,18 @@ export class AuthorsTableComponent implements OnInit {
     });
   }
 
+  public openReadDialog(id: number): void {
+    this.authorService.getAuthor(id).subscribe((author: Author) => {
+      console.log(author)
+      const dialogRef = this.dialog.open(AuthorReadDialogComponent, {
+        width: '500px',
+        data: {
+          author: author,
+        }
+      });
+    })
+  }
+
   public openUpdateDialog(id: number): void {
     this.authorService.getAuthor(id).subscribe((author: Author) => {
       const dialogRef = this.dialog.open(AuthorDialogComponent, {
@@ -70,6 +83,7 @@ export class AuthorsTableComponent implements OnInit {
       });
 
       dialogRef.afterClosed().subscribe((author: Author) => {
+
         this.onUpdate.emit(author)
       });
     })

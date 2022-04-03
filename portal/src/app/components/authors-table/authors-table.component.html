@@ -32,7 +32,7 @@
         <th mat-header-cell *matHeaderCellDef> Actions </th>
         <td mat-cell *matCellDef="let row">
           <div class="d-flex">
-            <div class="me-2 action"><mat-icon>search</mat-icon></div>
+            <div class="me-2 action" (click)="openReadDialog(row.id)"><mat-icon>search</mat-icon></div>
             <div class="me-2 action" (click)="openUpdateDialog(row.id)"><mat-icon>edit</mat-icon></div>
             <div class="action" (click)="delete(row.id)"><mat-icon>delete</mat-icon></div>
           </div>

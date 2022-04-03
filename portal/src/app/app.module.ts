@@ -25,6 +25,10 @@ import { AuthorDialogComponent } from './components/author-dialog/author-dialog.
 import {MatSelectModule} from "@angular/material/select";
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatNativeDateModule} from "@angular/material/core";
+import { AuthorReadDialogComponent } from './components/author-read-dialog/author-read-dialog.component';
+import {MatCardModule} from "@angular/material/card";
+import {MatDivider, MatDividerModule} from "@angular/material/divider";
+import {MatListModule} from "@angular/material/list";
 
 @NgModule({
   declarations: [
@@ -35,7 +39,8 @@ import {MatNativeDateModule} from "@angular/material/core";
     ErrorComponent,
     WelcomeComponent,
     AuthorsTableComponent,
-    AuthorDialogComponent
+    AuthorDialogComponent,
+    AuthorReadDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -56,7 +61,10 @@ import {MatNativeDateModule} from "@angular/material/core";
     MatSelectModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    NgToastModule
+    NgToastModule,
+    MatCardModule,
+    MatDividerModule,
+    MatListModule
   ],
   providers: [],
   bootstrap: [AppComponent]

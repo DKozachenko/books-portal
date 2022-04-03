@@ -34,6 +34,7 @@ namespace WebAPI
             });
             string con = "Data Source = (localdb)\\MSSQLLocalDB; Initial catalog = BooksPortal; Integrated Security = true";
             services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(con));
+            
 
             services.AddControllers().AddNewtonsoftJson(options =>
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore

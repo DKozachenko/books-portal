@@ -6,6 +6,7 @@ import {AuthorView} from "../../interfaces/AuthorView";
 import {Book} from "../../interfaces/Book";
 import {NgToastService} from "ng-angular-popup";
 import {BookService} from "../../services/book.service";
+import {Location} from "@angular/common";
 
 @Component({
   selector: 'app-authors',
@@ -21,7 +22,8 @@ export class AuthorsComponent implements OnInit {
 
   constructor(private authorService: AuthorService,
               private bookService: BookService,
-              private toastService: NgToastService) {
+              private toastService: NgToastService,
+              private location: Location) {
   }
 
   ngOnInit(): void {
@@ -90,5 +92,9 @@ export class AuthorsComponent implements OnInit {
         this.toastService.error({detail:"ERROR",summary:`Author with id ${author.id} was deleted`,duration:3000});
       })
     }
+  }
+
+  public back(): void {
+    this.location.back()
   }
 }
