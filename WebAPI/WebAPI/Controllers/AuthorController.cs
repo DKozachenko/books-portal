@@ -75,8 +75,6 @@ namespace WebAPI.Controllers
                 ExistedAuthor.Country = UpdatedAuthor.Country;
                 ExistedAuthor.AboutText = UpdatedAuthor.AboutText;
 
-
-
                 var UpdatedBooks = UpdatedAuthor.Books;
                 
                 if (UpdatedBooks != null)
@@ -98,7 +96,6 @@ namespace WebAPI.Controllers
                 }
 
             }
-
 
             return new JsonResult(UpdatedAuthor);
         }

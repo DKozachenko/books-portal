@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,23 +30,69 @@ namespace WebAPI.Controllers
         [HttpGet("{id}")]
         public JsonResult GetGenre(long Id)
         {
-            var RequiredGenre = _db.Genres.SingleOrDefault(G => G.Id == Id);
+            var RequiredGenre = _db.Genres.Include(G => G.Books).SingleOrDefault(G => G.Id == Id);
             return new JsonResult(RequiredGenre);
         }
 
         [HttpPost]
         public JsonResult AddGenre(Genre NewGenre)
         {
-            _db.Genres.Add(NewGenre);
-            _db.SaveChanges();
+            if (NewGenre != null)
+            {
+                var AddedBooks = NewGenre.Books;
+                NewGenre.Books = new List<Book>();
+
+
+                foreach (var AddBook in AddedBooks)
+                {
+                    var ExistedBook = _db.Books.SingleOrDefault(B => B.Id == AddBook.Id);
+
+                    if (ExistedBook != null)
+                    {
+                        NewGenre.Books.Add(ExistedBook);
+                    }
+
+                }
+
+                _db.Genres.Add(NewGenre);
+                _db.SaveChanges();
+            }
+
             return new JsonResult(NewGenre);
         }
 
         [HttpPut]
         public JsonResult UpdateGenre(Genre UpdatedGenre)
         {
-            _db.Genres.Update(UpdatedGenre);
-            _db.SaveChanges();
+            if (UpdatedGenre != null)
+            {
+                _db.Entry(UpdatedGenre).State = EntityState.Detached;
+
+                var ExistedGenre = _db.Genres.Include(G => G.Books).SingleOrDefault(G => G.Id == UpdatedGenre.Id);
+
+                ExistedGenre.Name = UpdatedGenre.Name;
+
+                var UpdatedBooks = UpdatedGenre.Books;
+
+                if (UpdatedBooks != null)
+                {
+                    ExistedGenre.Books.Clear();
+
+                    foreach (var UpdateBook in UpdatedBooks)
+                    {
+                        var ExistedBook = _db.Books.SingleOrDefault(B => B.Id == UpdateBook.Id);
+
+                        if (ExistedBook != null)
+                        {
+                            ExistedGenre.Books.Add(ExistedBook);
+                        }
+
+                    }
+                    _db.Genres.Update(ExistedGenre);
+                    _db.SaveChanges();
+                }
+            }
+
             return new JsonResult(UpdatedGenre);
         }
         [HttpDelete]
@@ -64,8 +111,12 @@ namespace WebAPI.Controllers
         public JsonResult DeleteGenre(long Id)
         {
             var RequiredGenre = _db.Genres.SingleOrDefault(G => G.Id == Id);
-            _db.Genres.Remove(RequiredGenre);
-            _db.SaveChanges();
+            if (RequiredGenre != null)
+            {
+                _db.Genres.Remove(RequiredGenre);
+                _db.SaveChanges();
+            }
+            
             return new JsonResult(RequiredGenre);
         }
     }
