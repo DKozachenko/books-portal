@@ -35,11 +35,11 @@ export class AuthorsComponent implements OnInit {
   }
 
   private getAllAuthors() {
-    this.authorService.getAllAuthors().subscribe((items: Author[]) => {
-      this.fillAuthorsView(items)
-      this.tableSource = new MatTableDataSource(this.authorsView);
-      this.isLoadingAuthors = false
-    })
+    // this.authorService.getAllAuthors().subscribe((items: Author[]) => {
+    //   this.fillAuthorsView(items)
+    //   this.tableSource = new MatTableDataSource(this.authorsView);
+    //   this.isLoadingAuthors = false
+    // })
     this.authorService.getAllAuthors().subscribe({
       next: (items: Author[]) => {
         this.fillAuthorsView(items)
@@ -85,7 +85,6 @@ export class AuthorsComponent implements OnInit {
 
   public updateAuthor(author: Author) {
     if (author) {
-
       this.isLoadingAuthors = true
       this.authorService.updateAuthor(author).subscribe((author: Author) => {
         console.log(1)

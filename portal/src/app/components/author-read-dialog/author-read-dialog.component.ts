@@ -19,7 +19,6 @@ export class AuthorReadDialogComponent implements OnInit {
     books: []
   }
 
-
   constructor(public dialogRef: MatDialogRef<AuthorDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public data: { author: Author}) { }
 

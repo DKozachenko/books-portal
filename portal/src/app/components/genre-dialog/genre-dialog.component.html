@@ -1,0 +1,37 @@
+<h1 mat-dialog-title *ngIf="newGenre.id; else addTitle">Update genre</h1>
+<ng-template #addTitle>
+  <h1 mat-dialog-title>Add genre</h1>
+</ng-template>
+
+<div mat-dialog-content>
+  <form [formGroup]="form">
+    <mat-form-field appearance="fill" class="w-100">
+      <mat-label class="text-black">Name</mat-label>
+      <input matInput formControlName="name" [(ngModel)]="newGenre.name">
+
+      <div *ngIf="form.get('name')?.touched && form.get('name')?.errors" class="errors">
+        <small *ngIf="form.touched && form.get('name')?.errors?.['required']" class="text-danger">Field is required</small>
+        <small *ngIf="form.touched && form.get('name')?.errors?.['maxlength']" class="text-danger">Field is too long, less 100 symbols</small>
+      </div>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="w-100">
+      <mat-label class="text-black">Books</mat-label>
+      <mat-select formControlName="books" multiple (selectionChange)="changeBookNames($event)">
+        <mat-option *ngFor="let book of books" [value]="book.title" selected>{{book.title}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+  </form>
+</div>
+
+<div mat-dialog-actions class="d-flex justify-content-end">
+  <div class="action me-2" (click)="close()">
+    <mat-icon>cancel</mat-icon>
+  </div>
+
+  <div [hidden]="form.invalid" [mat-dialog-close]="newGenre" class="action">
+    <mat-icon>check</mat-icon>
+  </div>
+</div>
+

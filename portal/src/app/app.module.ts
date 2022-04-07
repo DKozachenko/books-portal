@@ -29,6 +29,9 @@ import { AuthorReadDialogComponent } from './components/author-read-dialog/autho
 import {MatCardModule} from "@angular/material/card";
 import {MatDivider, MatDividerModule} from "@angular/material/divider";
 import {MatListModule} from "@angular/material/list";
+import { GenresTableComponent } from './components/genres-table/genres-table.component';
+import { GenreDialogComponent } from './components/genre-dialog/genre-dialog.component';
+import { GenreReadDialogComponent } from './components/genre-read-dialog/genre-read-dialog.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +43,10 @@ import {MatListModule} from "@angular/material/list";
     WelcomeComponent,
     AuthorsTableComponent,
     AuthorDialogComponent,
-    AuthorReadDialogComponent
+    AuthorReadDialogComponent,
+    GenresTableComponent,
+    GenreDialogComponent,
+    GenreReadDialogComponent
   ],
   imports: [
     BrowserModule,
