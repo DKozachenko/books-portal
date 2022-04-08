@@ -1,0 +1,32 @@
+<h1 mat-dialog-title>Read book</h1>
+
+<div mat-dialog-content>
+  <mat-card class="example-card">
+    <mat-card-title class="fs-1 lh-1 mb-4">{{ currentBook.title }}</mat-card-title>
+    <mat-card-content>
+      <p class="fs-3 lh-1">{{ currentBook.description }}</p>
+      <p>{{ currentBook.datePublication | date:'longDate' }}</p>
+      <p>{{ currentBook.size }}</p>
+      <p>{{ currentBook.ageLimit }}</p>
+
+      <mat-divider></mat-divider>
+
+      <mat-list role="list">
+        <div mat-subheader>Genres</div>
+        <mat-list-item *ngFor="let genre of currentBook.genres" role="listitem">{{ genre.name }}</mat-list-item>
+      </mat-list>
+
+      <mat-list role="list">
+        <div mat-subheader>Authors</div>
+        <mat-list-item *ngFor="let author of currentBook.writers" role="listitem">{{ author.firstName + " " + author.lastName }}</mat-list-item>
+      </mat-list>
+    </mat-card-content>
+  </mat-card>
+</div>
+
+<div mat-dialog-actions class="d-flex justify-content-end">
+  <div class="action me-2" (click)="close()">
+    <mat-icon>cancel</mat-icon>
+  </div>
+</div>
+

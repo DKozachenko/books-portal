@@ -1,0 +1,24 @@
+<div class="authors py-5">
+  <mat-icon class="text-white mb-3 border border-1 border-white rounded-2 back" (click)="back()">keyboard_backspace</mat-icon>
+  <h1 class="text-white">Books</h1>
+
+  <div *ngIf="!isError; else error">
+    <div *ngIf="isLoadingAuthors || isLoadingBooks || isLoadingGenres; else table" class="d-flex flex-column align-items-center">
+      <h2 class="text-white mb-5">Loading...</h2>
+      <mat-spinner></mat-spinner>
+    </div>
+
+    <ng-template #table>
+      <app-books-table [tableSource]="tableSource" [authors]="authors" [genres]="genres" (onAdd)="addBook($event)" (onUpdate)="updateBook($event)" (onDelete)="deleteBook($event)" (onDeleteAll)="deleteAllBooks()"></app-books-table>
+    </ng-template>
+  </div>
+
+  <ng-template #error>
+    <h2 class="text-white">Something goes wrong with server</h2>
+  </ng-template>
+
+
+  <lib-ng-toast></lib-ng-toast>
+</div>
+
+

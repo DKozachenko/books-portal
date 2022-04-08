@@ -17,7 +17,7 @@ import {MatFormFieldModule, MatLabel} from "@angular/material/form-field";
 import {MatTableModule} from "@angular/material/table";
 import {MatPaginatorModule} from "@angular/material/paginator";
 import {MatInputModule} from "@angular/material/input";
-import {MatSortHeader, MatSortModule} from "@angular/material/sort";
+import {MatSortModule} from "@angular/material/sort";
 import { AuthorsTableComponent } from './components/authors-table/authors-table.component';
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {MatDialogModule} from "@angular/material/dialog";
@@ -27,11 +27,14 @@ import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatNativeDateModule} from "@angular/material/core";
 import { AuthorReadDialogComponent } from './components/author-read-dialog/author-read-dialog.component';
 import {MatCardModule} from "@angular/material/card";
-import {MatDivider, MatDividerModule} from "@angular/material/divider";
+import {MatDividerModule} from "@angular/material/divider";
 import {MatListModule} from "@angular/material/list";
 import { GenresTableComponent } from './components/genres-table/genres-table.component';
 import { GenreDialogComponent } from './components/genre-dialog/genre-dialog.component';
 import { GenreReadDialogComponent } from './components/genre-read-dialog/genre-read-dialog.component';
+import { BooksTableComponent } from './components/books-table/books-table.component';
+import { BookDialogComponent } from './components/book-dialog/book-dialog.component';
+import { BookReadDialogComponent } from './components/book-read-dialog/book-read-dialog.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +49,10 @@ import { GenreReadDialogComponent } from './components/genre-read-dialog/genre-r
     AuthorReadDialogComponent,
     GenresTableComponent,
     GenreDialogComponent,
-    GenreReadDialogComponent
+    GenreReadDialogComponent,
+    BooksTableComponent,
+    BookDialogComponent,
+    BookReadDialogComponent,
   ],
   imports: [
     BrowserModule,

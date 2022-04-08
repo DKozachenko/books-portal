@@ -63,7 +63,6 @@ export class AuthorsTableComponent implements OnInit {
 
   public openReadDialog(id: number): void {
     this.authorService.getAuthor(id).subscribe((author: Author) => {
-      console.log(author)
       const dialogRef = this.dialog.open(AuthorReadDialogComponent, {
         width: '500px',
         data: {
@@ -84,7 +83,6 @@ export class AuthorsTableComponent implements OnInit {
       });
 
       dialogRef.afterClosed().subscribe((author: Author) => {
-
         this.onUpdate.emit(author)
       });
     })
@@ -97,5 +95,4 @@ export class AuthorsTableComponent implements OnInit {
   public deleteAll(): void {
     this.onDeleteAll.emit()
   }
-
 }

@@ -36,11 +36,6 @@ export class GenresComponent implements OnInit {
   }
 
   private getAllGenres() {
-    // this.bookService.getAllBooks().subscribe((items: Book[]) => {
-    //   this.fillGenresView(items)
-    //   this.tableSource = new MatTableDataSource(this.genresView);
-    //   this.isLoadingGenres = false
-    // })
     this.genreService.getAllGenres().subscribe({
       next: (items: Genre[]) => {
         this.fillGenresView(items)
@@ -87,7 +82,6 @@ export class GenresComponent implements OnInit {
     if (genre) {
       this.isLoadingGenres = true
       this.genreService.updateGenre(genre).subscribe((genre: Genre) => {
-        console.log(1)
         this.getAllGenres()
         this.toastService.warning({detail: "WARN", summary: `Genre with id ${genre.id} was updated`, duration: 3000})
       })
@@ -110,11 +104,9 @@ export class GenresComponent implements OnInit {
       this.getAllGenres()
       this.toastService.info({detail: "INFO", summary: `You deleted all genres`, duration: 3000})
     })
-
   }
 
   public back(): void {
     this.location.back()
   }
-
 }

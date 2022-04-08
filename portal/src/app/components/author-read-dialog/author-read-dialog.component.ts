@@ -29,5 +29,4 @@ export class AuthorReadDialogComponent implements OnInit {
   public close(): void {
     this.dialogRef.close();
   }
-
 }

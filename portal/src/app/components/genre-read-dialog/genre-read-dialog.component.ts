@@ -15,6 +15,7 @@ export class GenreReadDialogComponent implements OnInit {
     name: '',
     books: []
   }
+
   constructor(public dialogRef: MatDialogRef<GenreDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public data: { genre: Genre}) { }
 
@@ -25,5 +26,4 @@ export class GenreReadDialogComponent implements OnInit {
   public close(): void {
     this.dialogRef.close();
   }
-
 }

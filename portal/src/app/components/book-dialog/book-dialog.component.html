@@ -1,0 +1,85 @@
+<h1 mat-dialog-title *ngIf="newBook.id; else addTitle">Update book</h1>
+<ng-template #addTitle>
+  <h1 mat-dialog-title>Add book</h1>
+</ng-template>
+
+<div mat-dialog-content>
+  <form [formGroup]="form">
+    <mat-form-field appearance="fill" class="w-100">
+      <mat-label class="text-black">Title</mat-label>
+      <input matInput formControlName="title" [(ngModel)]="newBook.title">
+
+      <div *ngIf="form.get('title')?.touched && form.get('title')?.errors" class="errors">
+        <small *ngIf="form.touched && form.get('title')?.errors?.['required']" class="text-danger">Field is required</small>
+        <small *ngIf="form.touched && form.get('title')?.errors?.['maxlength']" class="text-danger">Field is too long, less 100 symbols</small>
+      </div>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="w-100">
+      <mat-label class="text-black">Description</mat-label>
+      <textarea matInput formControlName="description" [(ngModel)]="newBook.description"></textarea>
+
+      <div *ngIf="form.get('description')?.touched && form.get('description')?.errors" class="errors">
+        <small *ngIf="form.touched && form.get('description')?.errors?.['required']" class="text-danger">Field is required</small>
+        <small *ngIf="form.touched && form.get('description')?.errors?.['maxlength']" class="text-danger">Field is too long, less 100 symbols</small>
+      </div>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="w-100">
+      <mat-label class="text-black">Date publication</mat-label>
+      <input matInput [matDatepicker]="picker" formControlName="datePublication" [(ngModel)]="newBook.datePublication">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+
+      <div *ngIf="form.get('datePublication')?.touched && form.get('datePublication')?.errors" class="errors">
+        <small *ngIf="form.touched && form.get('dateBirth')?.errors?.['required']" class="text-danger">Field is required</small>
+      </div>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="w-100">
+      <mat-label class="text-black">Size</mat-label>
+      <input matInput formControlName="size" [(ngModel)]="newBook.size">
+
+      <div *ngIf="form.get('size')?.touched && form.get('size')?.errors" class="errors">
+        <small *ngIf="form.touched && form.get('size')?.errors?.['min']" class="text-danger">Field is min 1</small>
+      </div>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="w-100">
+      <mat-label class="text-black">Age limit</mat-label>
+      <input matInput formControlName="ageLimit" [(ngModel)]="newBook.ageLimit">
+
+      <div *ngIf="form.get('ageLimit')?.touched && form.get('ageLimit')?.errors" class="errors">
+        <small *ngIf="form.touched && form.get('ageLimit')?.errors?.['min']" class="text-danger">Field is min 0</small>
+        <small *ngIf="form.touched && form.get('ageLimit')?.errors?.['max']" class="text-danger">Field is max 18</small>
+      </div>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="w-100">
+      <mat-label class="text-black">Genres</mat-label>
+      <mat-select formControlName="genres" multiple (selectionChange)="changeGenreNames($event)">
+        <mat-option *ngFor="let genre of genres" [value]="genre.name" selected>{{genre.name}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="w-100">
+      <mat-label class="text-black">Authors</mat-label>
+      <mat-select formControlName="authors" multiple (selectionChange)="changeAuthorNames($event)">
+        <mat-option *ngFor="let author of authors" [value]="author.firstName" selected>{{author.firstName}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+  </form>
+</div>
+
+<div mat-dialog-actions class="d-flex justify-content-end">
+  <div class="action me-2" (click)="close()">
+    <mat-icon>cancel</mat-icon>
+  </div>
+
+  <div [hidden]="form.invalid" [mat-dialog-close]="newBook" class="action">
+    <mat-icon>check</mat-icon>
+  </div>
+</div>
+
+
